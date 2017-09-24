@@ -9,7 +9,12 @@ Part of the "Open" set of libraries.</Description>
     <Company />
     <Product />
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <PackageLicenseUrl>https://github.com/electricessence/Open/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageLicenseUrl>https://github.com/electricessence/Open.Arithmetic/blob/master/LISCENSE.md</PackageLicenseUrl>
+    <Copyright>https://github.com/electricessence/Open.Arithmetic/blob/master/LISCENSE.md</Copyright>
+    <PackageProjectUrl>https://github.com/electricessence/Open.Arithmetic/</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/electricessence/Open.Arithmetic/</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>dotnet, dotnet-core, dotnetcore, cs, math, dynamic, arithmetic</PackageTags>
   </PropertyGroup>
 
 </Project>
