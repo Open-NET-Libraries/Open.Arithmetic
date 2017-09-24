@@ -8,6 +8,8 @@ Part of the "Open" set of libraries.</Description>
     <Authors>electricessence</Authors>
     <Company />
     <Product />
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageLicenseUrl>https://github.com/electricessence/Open/blob/master/LICENSE</PackageLicenseUrl>
   </PropertyGroup>
 
 </Project>
