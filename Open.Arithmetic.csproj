@@ -15,10 +15,18 @@ Part of the "Open" set of libraries.</Description>
     <RepositoryUrl>https://github.com/electricessence/Open.Arithmetic/</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>dotnet, dotnet-core, dotnetcore, cs, math, dynamic, arithmetic</PackageTags>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Open.Collections" Version="1.1.0" />
+    <None Remove=".git" />
+    <None Remove=".gitignore" />
+    <None Remove="LISCENSE.md" />
+    <None Remove="README.md" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Open.Collections" Version="1.2.0" />
   </ItemGroup>
 
 </Project>
