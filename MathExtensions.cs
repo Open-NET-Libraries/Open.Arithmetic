@@ -15,7 +15,7 @@ namespace Open.Arithmetic
 		static void ValidateIntPower(int power)
 		{
 			if (power < 0)
-				throw new ArgumentOutOfRangeException("power", power, "In order to maintain the interger math, power cannot be negative.");
+				throw new ArgumentOutOfRangeException(nameof(power), power, "In order to maintain the interger math, power cannot be negative.");
 		}
 
 		/// <summary>
