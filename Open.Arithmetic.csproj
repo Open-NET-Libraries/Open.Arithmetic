@@ -14,11 +14,19 @@ Part of the "Open" set of libraries.</Description>
     <PackageProjectUrl>https://github.com/electricessence/Open.Arithmetic/</PackageProjectUrl>
     <RepositoryUrl>https://github.com/electricessence/Open.Arithmetic/</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageTags>dotnet, dotnet-core, dotnetcore, cs, math, dynamic, arithmetic</PackageTags>
-    <Version>1.1.0</Version>
-    <PackageReleaseNotes>Updated to .NET Standard for compatability.</PackageReleaseNotes>
-    <AssemblyVersion>1.1.0.0</AssemblyVersion>
-    <FileVersion>1.1.0.0</FileVersion>
+    <PackageTags>dotnet, dotnet-core, dotnetcore, cs, math, dynamic, arithmetic, triangular, statistical, variance, covariance, correlation</PackageTags>
+    <Version>1.1.1</Version>
+    <PackageReleaseNotes>Extends Triangular methods and added TriangularIndexer.</PackageReleaseNotes>
+    <AssemblyVersion>1.1.1.0</AssemblyVersion>
+    <FileVersion>1.1.1.0</FileVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
