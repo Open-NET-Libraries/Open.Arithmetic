@@ -5,7 +5,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Open.Arithmetic
 {
@@ -34,7 +33,7 @@ namespace Open.Arithmetic
 			if (value == -1)
 				return power % 2 == 0 ? 1 : -1;
 
-			int v = 1;
+			var v = 1;
 			for (var i = 1; i < power; i++)
 				v *= value;
 			return v;
@@ -56,7 +55,7 @@ namespace Open.Arithmetic
 			if (value == -1L)
 				return power % 2 == 0 ? 1L : -1L;
 
-			long v = 1L;
+			var v = 1L;
 			for (var i = 1; i < power; i++)
 				v *= value;
 			return v;
@@ -72,9 +71,9 @@ namespace Open.Arithmetic
 			if (source == null) throw new NullReferenceException();
 			if (source.Length > 32) throw new ArgumentOutOfRangeException("Array cannot be greater than 32 bits.");
 
-			int result = 0;
+			var result = 0;
 
-			for (int i = 0; i < source.Length; i++)
+			for (var i = 0; i < source.Length; i++)
 				if (source[i])
 					result += 2.PowerOf(i);
 
@@ -93,7 +92,7 @@ namespace Open.Arithmetic
 
 			long result = 0;
 
-			for (int i = 0; i < source.Length; i++)
+			for (var i = 0; i < source.Length; i++)
 				if (source[i])
 					result += 2L.PowerOf(i);
 
@@ -198,5 +197,3 @@ namespace Open.Arithmetic
 
 	}
 }
-
-

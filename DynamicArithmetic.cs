@@ -47,7 +47,7 @@ namespace Open.Arithmetic.Dynamic
 			if (power == 0)
 				return (T)((dynamic)1);
 
-			T result = a;
+			var result = a;
 
 			for (uint i = 1; i < power; i++)
 				result *= (dynamic)a;

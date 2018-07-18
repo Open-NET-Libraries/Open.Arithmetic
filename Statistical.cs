@@ -15,7 +15,7 @@ namespace Open.Arithmetic
 
 			double sum = 0;
 			double sum2 = 0;
-			int count = 0;
+			var count = 0;
 			foreach (var s in source)
 			{
 				if (double.IsNaN(s))
@@ -44,8 +44,8 @@ namespace Open.Arithmetic
 
 			while (true)
 			{
-				bool sv = sourceEnumerator.MoveNext();
-				bool tv = targetEnumerator.MoveNext();
+				var sv = sourceEnumerator.MoveNext();
+				var tv = targetEnumerator.MoveNext();
 
 				if (sv != tv)
 					throw new Exception("Products: source and target enumerations have different counts.");
