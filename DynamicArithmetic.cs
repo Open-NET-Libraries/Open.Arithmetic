@@ -50,9 +50,10 @@ namespace Open.Arithmetic.Dynamic
 			var result = a;
 
 			for (uint i = 1; i < power; i++)
+				// ReSharper disable once RedundantCast
 				result *= (dynamic)a;
 
-			return a;
+			return result;
 		}
 
 

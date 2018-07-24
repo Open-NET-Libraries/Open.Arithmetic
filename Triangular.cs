@@ -42,7 +42,6 @@ namespace Open.Arithmetic
 		/// <exception cref="ArgumentOutOfRangeException">Result will exceed maximum value for an unsigned 32 bit integer.</exception>
 		public static uint ForwardInt(uint n)
 		{
-			if (n < 0) throw new ArgumentOutOfRangeException(nameof(n), n, "Must be at least zero.");
 			if (n > MaxUInt32) throw new ArgumentOutOfRangeException(nameof(n), n, "Result will exceed maximum value for an unsigned 32 bit integer.");
 			Contract.EndContractBlock();
 
@@ -150,7 +149,7 @@ namespace Open.Arithmetic
              * @returns {Enumerable<T>}
              */
 			public static IEnumerable<T> Increasing<T>(IEnumerable<T> source)
-				=> source.SelectMany((c, i) => Enumerable.Repeat(c, i));
+				=> source.SelectMany(Enumerable.Repeat);
 
 			/**
              * Starting with the first item, increases the size of the loop of items until there is no more.

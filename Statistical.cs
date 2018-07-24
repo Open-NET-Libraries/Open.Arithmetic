@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.Contracts;
 using System.Linq;
 
 namespace Open.Arithmetic
@@ -10,6 +12,7 @@ namespace Open.Arithmetic
 		{
 			if (source == null)
 				throw new NullReferenceException();
+			Contract.EndContractBlock();
 
 			// Manual calculation to be sure LINQ isn't screwing up our double precision. :(
 
@@ -37,24 +40,27 @@ namespace Open.Arithmetic
 			if (source == null)
 				throw new NullReferenceException();
 			if (target == null)
-				throw new ArgumentNullException();
+				throw new ArgumentNullException(nameof(target));
 
-			var sourceEnumerator = source.GetEnumerator();
-			var targetEnumerator = target.GetEnumerator();
-
-			while (true)
+			using (var sourceEnumerator = source.GetEnumerator())
+			using (var targetEnumerator = target.GetEnumerator())
 			{
-				var sv = sourceEnumerator.MoveNext();
-				var tv = targetEnumerator.MoveNext();
 
-				if (sv != tv)
-					throw new Exception("Products: source and target enumerations have different counts.");
+				while (true)
+				{
+					var sv = sourceEnumerator.MoveNext();
+					var tv = targetEnumerator.MoveNext();
 
-				if (!sv || !tv)
-					break;
+					if (sv != tv)
+						throw new Exception("Products: source and target enumerations have different counts.");
 
-				yield return sourceEnumerator.Current * targetEnumerator.Current;
+					if (!sv)
+						break;
+
+					yield return sourceEnumerator.Current * targetEnumerator.Current;
+				}
 			}
+
 		}
 
 		public static double Covariance(this IEnumerable<double> source, IEnumerable<double> target)
@@ -62,15 +68,18 @@ namespace Open.Arithmetic
 			if (source == null)
 				throw new NullReferenceException();
 			if (target == null)
-				throw new ArgumentNullException();
+				throw new ArgumentNullException(nameof(target));
 
-			return source.Products(target).Average()
-				- source.Average() * target.Average();
+			var sourceList = source as IReadOnlyList<double> ?? source.ToArray();
+			var targetList = target as IReadOnlyList<double> ?? target.ToArray();
+			return sourceList.Products(targetList).Average()
+				- sourceList.Average() * targetList.Average();
 		}
 
 
 		// const string CORRELATION_FATAL = "FATAL: Covariance ({0}) must be less than or equal to its denominator. √({1} * {2}) = {3}";
 
+		[SuppressMessage("ReSharper", "CompareOfFloatsByEqualityOperator")]
 		public static double Correlation(double covariance, double sourceVariance, double targetVariance)
 		{
 			if (double.IsNaN(targetVariance)
@@ -85,7 +94,7 @@ namespace Open.Arithmetic
 			var m = sourceVariance * targetVariance;
 			if (m < 0) return double.NaN; // Cannot root a negative number (unless your a mathemetician).
 
-			return covariance / System.Math.Sqrt(sourceVariance * targetVariance);
+			return covariance / Math.Sqrt(sourceVariance * targetVariance);
 		}
 
 		public static double Correlation(double covariance, IEnumerable<double> source, IEnumerable<double> target)
@@ -105,7 +114,10 @@ namespace Open.Arithmetic
 			if (target == null)
 				throw new ArgumentNullException();
 
-			return Correlation(source.Covariance(target), source, target);
+			var sourceList = source as IReadOnlyList<double> ?? source.ToArray();
+			var targetList = target as IReadOnlyList<double> ?? target.ToArray();
+
+			return Correlation(sourceList.Covariance(targetList), sourceList, targetList);
 		}
 	}
 }
