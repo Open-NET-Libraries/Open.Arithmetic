@@ -7,10 +7,10 @@ namespace Open.Arithmetic
 {
 	public class TriangularIndexer<T> : IReadOnlyList<T>
 	{
-		public readonly IReadOnlyList<T> Source;
+		public readonly IList<T> Source;
 		public readonly bool IsDescending;
 
-		public TriangularIndexer(IReadOnlyList<T> source, bool descending = false)
+		public TriangularIndexer(IList<T> source, bool descending = false)
 		{
 			Source = source ?? throw new ArgumentNullException(nameof(source));
 			if (source.Count > Triangular.MaxInt32)
@@ -44,9 +44,9 @@ namespace Open.Arithmetic
 
 	public static class TriangularIndexer
 	{
-		public static TriangularIndexer<T> Increasing<T>(IReadOnlyList<T> source)
+		public static TriangularIndexer<T> Increasing<T>(IList<T> source)
 			=> new TriangularIndexer<T>(source);
-		public static TriangularIndexer<T> Decreasing<T>(IReadOnlyList<T> source)
+		public static TriangularIndexer<T> Decreasing<T>(IList<T> source)
 			=> new TriangularIndexer<T>(source, true);
 	}
 }

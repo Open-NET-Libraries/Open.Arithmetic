@@ -3,7 +3,6 @@
  * Licensing: MIT https://github.com/electricessence/Genetic-Algorithm-Platform/blob/master/LICENSE.md
  */
 
-using Open.Collections;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
@@ -141,38 +140,62 @@ namespace Open.Arithmetic
 
 		public static class Disperse
 		{
-
-			/**
-             * Increases the repeat of an element based on its index.
-			 * 1, 2, 2, 3, 3, 3, 4, 4, 4, 4, ...
-             * @param source
-             * @returns {Enumerable<T>}
-             */
+			/// <summary>
+			/// Increases the repeat of an element based on its index.
+			/// 1, 2, 2, 3, 3, 3, 4, 4, 4, 4, ...
+			/// </summary>
+			/// <typeparam name="T">The type of source values.</typeparam>
+			/// <param name="source">The source values.</param>
+			/// <returns>The repeated sequence.</returns>
 			public static IEnumerable<T> Increasing<T>(IEnumerable<T> source)
 				=> source.SelectMany(Enumerable.Repeat);
 
-			/**
-             * Starting with the first item, increases the size of the loop of items until there is no more.
-			 * The quantity/total of an item is lessened as the loop spreads the items out as it progresses.
-			 * Given an entire set, the first item is represented the most and the last item is represented the least.
-			 * 1, 1, 2, 1, 2, 3, 1, 2, 3, 4, 1, 2, 3, 4, 5, ...
-             * @param source
-             * @returns {Enumerable<T>}
-             */
+			/// <summary>
+			/// Starting with the first item, increases the size of the loop of items until there is no more.
+			/// The quantity/total of an item is lessened as the loop spreads the items out as it progresses.
+			/// Given an entire set, the first item is represented the most and the last item is represented the least.
+			///* 1, 1, 2, 1, 2, 3, 1, 2, 3, 4, 1, 2, 3, 4, 5, ...
+			/// </summary>
+			/// <typeparam name="T">The type of source values.</typeparam>
+			/// <param name="source">The source values.</param>
+			/// <returns>The repeated sequence.</returns>
 			public static IEnumerable<T> Decreasing<T>(IEnumerable<T> source)
 			{
-				var s = source.Memoize();
-				return s.SelectMany((c, i) => s.Take(i));
+				using (var enumerator = source.GetEnumerator())
+				{
+					if (!enumerator.MoveNext()) yield break; // empty?
+
+					var list = new LinkedList<T>();
+					do
+					{
+						list.AddLast(enumerator.Current);
+						foreach (var e in list)
+							yield return e;
+					}
+					while (enumerator.MoveNext());
+				}
 			}
 
-			/**
-			 * Effectively the same as Disperse.Increasing but in reverse.
-			 * Given a fininte set, calling Disperse.Increasing(sourse).Reverse() could produce the desired result as well.
-			 * 1, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 4, 4, 5
-			 * @param source
-			 * @returns {Enumerable<T>}
-			 */
-			public static IEnumerable<T> Descending<T>(IReadOnlyList<T> source)
+			/// <summary>			
+			/// Effectively the same as Disperse.Increasing but in reverse.
+			/// Given a fininte set, calling Disperse.Increasing(sourse).Reverse() could produce the desired result as well.
+			/// 1, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 4, 4, 5
+			/// </summary>
+			/// <typeparam name="T">The type of source values.</typeparam>
+			/// <param name="source">The source values.</param>
+			/// <returns>The repeated sequence.</returns>
+			public static IEnumerable<T> Descending<T>(IReadOnlyCollection<T> source)
+				=> source.SelectMany((c, i) => Enumerable.Repeat(c, source.Count - i));
+
+			/// <summary>			
+			/// Effectively the same as Disperse.Increasing but in reverse.
+			/// Given a fininte set, calling Disperse.Increasing(sourse).Reverse() could produce the desired result as well.
+			/// 1, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 4, 4, 5
+			/// </summary>
+			/// <typeparam name="T">The type of source values.</typeparam>
+			/// <param name="source">The source values.</param>
+			/// <returns>The repeated sequence.</returns>
+			public static IEnumerable<T> Descending<T>(ICollection<T> source)
 				=> source.SelectMany((c, i) => Enumerable.Repeat(c, source.Count - i));
 		}
 	}

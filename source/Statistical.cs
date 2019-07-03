@@ -8,7 +8,13 @@ namespace Open.Arithmetic
 {
 	public static class Statistical
 	{
-		public static double Variance(this IEnumerable<double> source)
+		/// <summary>
+		/// Calculates the Variance of a set of numbers
+		/// </summary>
+		/// <param name="source">The set of numbers</param>
+		/// <param name="sample">If true, will divide by (n-1) (population).  If false, will divide by (n) (sample).</param>
+		/// <returns>The variance of a set of numbers.</returns>
+		public static double Variance(this IEnumerable<double> source, bool sample = false)
 		{
 			if (source == null)
 				throw new NullReferenceException();
@@ -18,29 +24,48 @@ namespace Open.Arithmetic
 
 			double sum = 0;
 			double sum2 = 0;
-			var count = 0;
+			var n = 0;
 			foreach (var s in source)
 			{
 				if (double.IsNaN(s))
 					return double.NaN;
 				sum += s;
 				sum2 += s * s;
-				count++;
+				n++;
 			}
 
-			if (count == 0)
-				return double.NaN;
+			if (n == 0)
+				return double.NaN; // Avoid divide by zero.
+
+			// (sum2 - sum * sum / n) / n // Population
+			// (sum2 - sum * sum / n) / (n - 1) // Sample
 
 			// Reduce the amount of division in order to reduce the amount of double precision error.
-			return sum2 / count - sum * sum / (count * count);
+			if (!sample)
+				return sum2 / n - sum * sum / (n * n);
+
+			if (n == 1)
+				return double.NaN; // Avoid divide by zero.
+
+			var n1 = n - 1;
+			var n2 = n * n1;
+
+			return sum2 / n1 - sum * sum / n2;
 		}
 
+		/// <summary>
+		/// Returns a sequence of the products of related entries.
+		/// </summary>
+		/// <param name="source">The first sequence's values.</param>
+		/// <param name="target">The second sequence's values.</param>
+		/// <returns>The resultant product of each related entry.</returns>
 		public static IEnumerable<double> Products(this IEnumerable<double> source, IEnumerable<double> target)
 		{
 			if (source == null)
 				throw new NullReferenceException();
 			if (target == null)
 				throw new ArgumentNullException(nameof(target));
+			Contract.EndContractBlock();
 
 			using (var sourceEnumerator = source.GetEnumerator())
 			using (var targetEnumerator = target.GetEnumerator())
@@ -63,17 +88,40 @@ namespace Open.Arithmetic
 
 		}
 
-		public static double Covariance(this IEnumerable<double> source, IEnumerable<double> target)
+		/// <summary>
+		/// Calculates the Variance of a set of numbers
+		/// </summary>
+		/// <param name="source">The first sequence's values.</param>
+		/// <param name="target">The second sequence's values.</param>
+		/// <param name="sample">If true, will divide by (n-1) (population).  If false, will divide by (n) (sample).</param>
+		/// <returns>The variance of a set of numbers.</returns>
+		public static double Covariance(this IEnumerable<double> source, IEnumerable<double> target, bool sample = false)
 		{
 			if (source == null)
 				throw new NullReferenceException();
 			if (target == null)
 				throw new ArgumentNullException(nameof(target));
+			Contract.EndContractBlock();
 
-			var sourceList = source as IReadOnlyList<double> ?? source.ToArray();
-			var targetList = target as IReadOnlyList<double> ?? target.ToArray();
-			return sourceList.Products(targetList).Average()
-				- sourceList.Average() * targetList.Average();
+			var sourceList = source as IList<double> ?? source.ToArray();
+			var targetList = target as IList<double> ?? target.ToArray();
+
+			var n = sourceList.Count;
+			if (targetList.Count != n)
+				throw new ArgumentException("Covariance: source and target enumerations have different counts.");
+
+			if (n < 1 || sample && n < 2)
+				throw new ArgumentException("Covariance: not enough entries for calculation.");
+
+			var prod = sourceList.Products(targetList).Sum();
+			var sumA = sourceList.Sum();
+			var sumB = targetList.Sum();
+
+			if (!sample)
+				return prod / n - sumA * sumB / (n * n);
+
+			var n2 = n - 1;
+			return prod / n2 - sumA * sumB / (n * n2);
 		}
 
 
@@ -103,6 +151,7 @@ namespace Open.Arithmetic
 				throw new NullReferenceException();
 			if (target == null)
 				throw new ArgumentNullException();
+			Contract.EndContractBlock();
 
 			return Correlation(covariance, source.Variance(), target.Variance());
 		}
@@ -113,9 +162,10 @@ namespace Open.Arithmetic
 				throw new NullReferenceException();
 			if (target == null)
 				throw new ArgumentNullException();
+			Contract.EndContractBlock();
 
-			var sourceList = source as IReadOnlyList<double> ?? source.ToArray();
-			var targetList = target as IReadOnlyList<double> ?? target.ToArray();
+			var sourceList = source as IList<double> ?? source.ToArray();
+			var targetList = target as IList<double> ?? target.ToArray();
 
 			return Correlation(sourceList.Covariance(targetList), sourceList, targetList);
 		}

@@ -9,16 +9,17 @@ Part of the "Open" set of libraries.</Description>
     <Company />
     <Product />
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <PackageLicenseUrl>https://github.com/electricessence/Open.Arithmetic/blob/master/LISCENSE.md</PackageLicenseUrl>
+    <PackageLicenseUrl></PackageLicenseUrl>
     <Copyright>https://github.com/electricessence/Open.Arithmetic/blob/master/LISCENSE.md</Copyright>
     <PackageProjectUrl>https://github.com/electricessence/Open.Arithmetic/</PackageProjectUrl>
     <RepositoryUrl>https://github.com/electricessence/Open.Arithmetic/</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>dotnet, dotnet-core, dotnetcore, cs, math, dynamic, arithmetic, triangular, statistical, variance, covariance, correlation</PackageTags>
-    <Version>1.2.0</Version>
-    <PackageReleaseNotes>Inspection fixes and optimizations.</PackageReleaseNotes>
-    <AssemblyVersion>1.2.0.0</AssemblyVersion>
-    <FileVersion>1.2.0.0</FileVersion>
+    <Version>1.4.0</Version>
+    <PackageReleaseNotes></PackageReleaseNotes>
+    <AssemblyVersion>1.4.0.0</AssemblyVersion>
+    <FileVersion>1.4.0.0</FileVersion>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -38,7 +39,6 @@ Part of the "Open" set of libraries.</Description>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.5.0" />
-    <PackageReference Include="Open.Collections" Version="2.4.4" />
   </ItemGroup>
 
 </Project>
