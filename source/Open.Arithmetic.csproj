@@ -17,8 +17,6 @@ Part of the "Open" set of libraries.</Description>
     <PackageTags>dotnet, dotnet-core, dotnetcore, cs, math, dynamic, arithmetic, triangular, statistical, variance, covariance, correlation</PackageTags>
     <Version>1.4.0</Version>
     <PackageReleaseNotes></PackageReleaseNotes>
-    <AssemblyVersion>1.4.0.0</AssemblyVersion>
-    <FileVersion>1.4.0.0</FileVersion>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 

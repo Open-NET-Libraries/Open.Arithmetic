@@ -161,19 +161,17 @@ namespace Open.Arithmetic
 			/// <returns>The repeated sequence.</returns>
 			public static IEnumerable<T> Decreasing<T>(IEnumerable<T> source)
 			{
-				using (var enumerator = source.GetEnumerator())
-				{
-					if (!enumerator.MoveNext()) yield break; // empty?
+				using var enumerator = source.GetEnumerator();
+				if (!enumerator.MoveNext()) yield break; // empty?
 
-					var list = new LinkedList<T>();
-					do
-					{
-						list.AddLast(enumerator.Current);
-						foreach (var e in list)
-							yield return e;
-					}
-					while (enumerator.MoveNext());
+				var list = new LinkedList<T>();
+				do
+				{
+					list.AddLast(enumerator.Current);
+					foreach (var e in list)
+						yield return e;
 				}
+				while (enumerator.MoveNext());
 			}
 
 			/// <summary>			

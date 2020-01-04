@@ -67,23 +67,20 @@ namespace Open.Arithmetic
 				throw new ArgumentNullException(nameof(target));
 			Contract.EndContractBlock();
 
-			using (var sourceEnumerator = source.GetEnumerator())
-			using (var targetEnumerator = target.GetEnumerator())
+			using var sourceEnumerator = source.GetEnumerator();
+			using var targetEnumerator = target.GetEnumerator();
+			while (true)
 			{
+				var sv = sourceEnumerator.MoveNext();
+				var tv = targetEnumerator.MoveNext();
 
-				while (true)
-				{
-					var sv = sourceEnumerator.MoveNext();
-					var tv = targetEnumerator.MoveNext();
+				if (sv != tv)
+					throw new Exception("Products: source and target enumerations have different counts.");
 
-					if (sv != tv)
-						throw new Exception("Products: source and target enumerations have different counts.");
+				if (!sv)
+					break;
 
-					if (!sv)
-						break;
-
-					yield return sourceEnumerator.Current * targetEnumerator.Current;
-				}
+				yield return sourceEnumerator.Current * targetEnumerator.Current;
 			}
 
 		}
