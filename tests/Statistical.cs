@@ -21,11 +21,11 @@ namespace Open.Arithmetic.Tests
 			var sum = VarianceSample.Sum();
 			var mean = sum / count;
 			var expected = VarianceSample.Select(s => Math.Pow(s - mean, 2)).Sum() / (count - 0);
-			Assert.IsTrue(
-				expected.IsPreciseEqual(VarianceSample.Variance(), true));
+			var actual = VarianceSample.Variance();
+			Assert.IsTrue(expected.IsNearEqual(actual, 10));
 			expected = VarianceSample.Select(s => Math.Pow(s - mean, 2)).Sum() / (count - 1);
-			Assert.IsTrue(
-				expected.IsPreciseEqual(VarianceSample.Variance(true), true));
+			actual = VarianceSample.Variance(true);
+			Assert.IsTrue(expected.IsNearEqual(actual, 10));
 		}
 
 		private readonly double[] CovarianceSampleX =

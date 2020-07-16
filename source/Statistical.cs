@@ -16,7 +16,7 @@ namespace Open.Arithmetic
 		/// <returns>The variance of a set of numbers.</returns>
 		public static double Variance(this IEnumerable<double> source, bool sample = false)
 		{
-			if (source == null)
+			if (source is null)
 				throw new NullReferenceException();
 			Contract.EndContractBlock();
 
@@ -61,9 +61,9 @@ namespace Open.Arithmetic
 		/// <returns>The resultant product of each related entry.</returns>
 		public static IEnumerable<double> Products(this IEnumerable<double> source, IEnumerable<double> target)
 		{
-			if (source == null)
+			if (source is null)
 				throw new NullReferenceException();
-			if (target == null)
+			if (target is null)
 				throw new ArgumentNullException(nameof(target));
 			Contract.EndContractBlock();
 
@@ -94,9 +94,9 @@ namespace Open.Arithmetic
 		/// <returns>The variance of a set of numbers.</returns>
 		public static double Covariance(this IEnumerable<double> source, IEnumerable<double> target, bool sample = false)
 		{
-			if (source == null)
+			if (source is null)
 				throw new NullReferenceException();
-			if (target == null)
+			if (target is null)
 				throw new ArgumentNullException(nameof(target));
 			Contract.EndContractBlock();
 
@@ -144,9 +144,9 @@ namespace Open.Arithmetic
 
 		public static double Correlation(double covariance, IEnumerable<double> source, IEnumerable<double> target)
 		{
-			if (source == null)
+			if (source is null)
 				throw new NullReferenceException();
-			if (target == null)
+			if (target is null)
 				throw new ArgumentNullException();
 			Contract.EndContractBlock();
 
@@ -155,9 +155,9 @@ namespace Open.Arithmetic
 
 		public static double Correlation(this IEnumerable<double> source, IEnumerable<double> target)
 		{
-			if (source == null)
+			if (source is null)
 				throw new NullReferenceException();
-			if (target == null)
+			if (target is null)
 				throw new ArgumentNullException();
 			Contract.EndContractBlock();
 

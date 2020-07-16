@@ -1,16 +1,10 @@
-﻿/*!
- * @author electricessence / https://github.com/electricessence/
- * Licensing: MIT https://github.com/electricessence/Genetic-Algorithm-Platform/blob/master/LICENSE.md
- */
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
 
 namespace Open.Arithmetic
 {
-
 	public static class Triangular
 	{
 		public static readonly short MaxInt16 = Reverse(short.MaxValue);

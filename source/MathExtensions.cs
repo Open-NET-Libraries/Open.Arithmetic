@@ -1,9 +1,4 @@
-﻿/*!
- * @author electricessence / https://github.com/electricessence/
- * Licensing: MIT https://github.com/electricessence/Open/blob/dotnet-core/LICENSE.md
- */
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 
@@ -90,7 +85,7 @@ namespace Open.Arithmetic
 		/// <returns>32 bit integer</returns>
 		public static int AsInteger(this bool[] source)
 		{
-			if (source == null) throw new NullReferenceException();
+			if (source is null) throw new NullReferenceException();
 			if (source.Length > 32) throw new ArgumentOutOfRangeException(nameof(source), source, "Array cannot be greater than 32 bits.");
 			Contract.EndContractBlock();
 
@@ -110,7 +105,7 @@ namespace Open.Arithmetic
 		/// <returns>64 bit integer</returns>
 		public static long AsLong(this bool[] source)
 		{
-			if (source == null) throw new NullReferenceException();
+			if (source is null) throw new NullReferenceException();
 			if (source.Length > 64) throw new ArgumentOutOfRangeException(nameof(source), source, "Array cannot be greater than 64 bits.");
 			Contract.EndContractBlock();
 
@@ -132,7 +127,7 @@ namespace Open.Arithmetic
 		public static double Product(this IEnumerable<double> source,
 			double defaultValueIfNoElements = double.NaN)
 		{
-			if (source == null)
+			if (source is null)
 				throw new NullReferenceException();
 			Contract.EndContractBlock();
 
@@ -157,7 +152,7 @@ namespace Open.Arithmetic
 		public static double AverageDouble(this IEnumerable<double> source,
 			double defaultValueIfNoElements = double.NaN)
 		{
-			if (source == null)
+			if (source is null)
 				throw new NullReferenceException();
 			Contract.EndContractBlock();
 
@@ -184,7 +179,7 @@ namespace Open.Arithmetic
 		/// <returns>The resultant quotiient.</returns>
 		public static double Quotient(this IEnumerable<double> source)
 		{
-			if (source == null)
+			if (source is null)
 				throw new NullReferenceException();
 			Contract.EndContractBlock();
 
@@ -222,7 +217,7 @@ namespace Open.Arithmetic
 		/// <returns>The resultant quotient.</returns>
 		public static double QuotientOf(this IEnumerable<double> divisors, double numerator)
 		{
-			if (divisors == null)
+			if (divisors is null)
 				throw new NullReferenceException();
 			Contract.EndContractBlock();
 

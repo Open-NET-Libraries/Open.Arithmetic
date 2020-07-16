@@ -1,10 +1,4 @@
-﻿/*!
- * @author electricessence / https://github.com/electricessence/
- * Licensing: MIT https://github.com/electricessence/Open/blob/dotnet-core/LICENSE.md
- */
-
-using System;
-
+﻿using System;
 
 namespace Open.Arithmetic.Dynamic
 {
@@ -15,31 +9,19 @@ namespace Open.Arithmetic.Dynamic
 	{
 		public static T1 AddValue<T1, T2>(this T1 a, T2 b)
 			where T1 : struct, IComparable
-			where T2 : struct, IComparable
-		{
-			return (dynamic)a + b;
-		}
+			where T2 : struct, IComparable => (dynamic)a + b;
 
 		public static T1 SubtractValue<T1, T2>(this T1 a, T2 b)
 			where T1 : struct, IComparable
-			where T2 : struct, IComparable
-		{
-			return (dynamic)a - b;
-		}
+			where T2 : struct, IComparable => (dynamic)a - b;
 
 		public static T1 MultiplyBy<T1, T2>(this T1 a, T2 b)
 			where T1 : struct, IComparable
-			where T2 : struct, IComparable
-		{
-			return (dynamic)a * b;
-		}
+			where T2 : struct, IComparable => (dynamic)a * b;
 
 		public static T1 DivideBy<T1, T2>(this T1 a, T2 b)
 			where T1 : struct, IComparable
-			where T2 : struct, IComparable
-		{
-			return (dynamic)a / b;
-		}
+			where T2 : struct, IComparable => (dynamic)a / b;
 
 		public static T PowerOf<T>(this T a, uint power)
 			where T : struct, IComparable
@@ -55,7 +37,5 @@ namespace Open.Arithmetic.Dynamic
 
 			return result;
 		}
-
-
 	}
 }
