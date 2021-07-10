@@ -43,5 +43,19 @@ namespace Open.Arithmetic.Tests
 			Assert.AreEqual(1502, (int)(CovarianceSampleX.Covariance(CovarianceSampleY) * 10));
 			Assert.AreEqual(187.75, CovarianceSampleX.Covariance(CovarianceSampleY, true));
 		}
+
+		[TestMethod]
+		public void Correlation()
+		{
+			{
+				var same = Enumerable.Range(1, 10).Select(Convert.ToDouble);
+				Assert.AreEqual(1, same.Correlation(same));
+			}
+
+			{
+				var same = Enumerable.Repeat(1, 10).Select(Convert.ToDouble);
+				Assert.AreEqual(1, same.Correlation(same));
+			}
+		}
 	}
 }

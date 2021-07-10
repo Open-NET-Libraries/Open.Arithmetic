@@ -15,7 +15,7 @@ Part of the "Open" set of libraries.</Description>
 		<PackageProjectUrl>https://github.com/Open-NET-Libraries/Open.Arithmetic/</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/Open-NET-Libraries/Open.Arithmetic/</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
-		<Version>1.5.0</Version>
+		<Version>1.6.0</Version>
 		<PackageReleaseNotes></PackageReleaseNotes>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -39,7 +39,10 @@ Part of the "Open" set of libraries.</Description>
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+	</ItemGroup>
 
+	<ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+		<PackageReference Include="System.Memory" Version="4.5.4" />
 	</ItemGroup>
 
 </Project>
