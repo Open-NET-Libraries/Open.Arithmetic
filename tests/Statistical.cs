@@ -57,4 +57,31 @@ public class Statistical
 			Assert.AreEqual(1, same.Correlation(same));
 		}
 	}
+
+	[TestMethod]
+	public void LargeSampleSizes_DoNotOverflow()
+	{
+		// The n·n term overflows Int32 for any n above 46,340; at n = 2^20 it wrapped to exactly
+		// zero, so variance became infinite and correlation NaN. Alternating 0/1 values make every
+		// intermediate sum an exact power of two, so the expected values are exact, not approximate:
+		// population variance 0.25, self-correlation 1.
+		var values = new double[1 << 20];
+		for (var i = 0; i < values.Length; i++)
+			values[i] = i % 2;
+
+		Assert.AreEqual(0.25, values.Variance());
+		Assert.AreEqual(1, values.Correlation(values));
+
+		// Sample (n − 1) denominators take the n·(n − 1) path.
+		var sampleVariance = values.Variance(true);
+		Assert.IsTrue(sampleVariance.IsNearEqual(0.25, 6));
+
+		// The smallest overflowing count: 46,341² exceeds Int32.MaxValue.
+		var threshold = new double[46_341];
+		for (var i = 0; i < threshold.Length; i++)
+			threshold[i] = i % 2;
+
+		Assert.IsTrue(threshold.Variance().IsNearEqual(0.25, 6));
+		Assert.AreEqual(1, threshold.Correlation(threshold));
+	}
 }
