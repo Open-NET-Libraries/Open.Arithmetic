@@ -16,14 +16,18 @@ public static class Statistical
 		// (sum2 - sum * sum / n) / (n - 1) // Sample
 
 		// Reduce the amount of division in order to reduce the amount of double precision error.
+		// The n·n product must be computed in double: as Int32 it overflows for any n above
+		// 46,340 (and at n = 2^20 wraps to exactly zero, turning the term into an infinity).
+		// For every n it does not overflow at, the product is an exactly representable double,
+		// so results at those sizes are unchanged bit for bit.
 		if (!sample)
-			return sum2 / n - sum * sum / (n * n);
+			return sum2 / n - sum * sum / ((double)n * n);
 
 		if (n == 1)
 			return double.NaN; // Avoid divide by zero.
 
 		var n1 = n - 1;
-		var n2 = n * n1;
+		var n2 = (double)n * n1;
 
 		return sum2 / n1 - sum * sum / n2;
 	}
@@ -222,11 +226,13 @@ public static class Statistical
 
 	static double Covariance(int n, double sumA, double sumB, double prod, bool sample)
 	{
+		// The n·n product in double for the same reason as Variance above: Int32 overflows for
+		// any n above 46,340, and identical values everywhere it does not.
 		if (!sample)
-			return prod / n - sumA * sumB / (n * n);
+			return prod / n - sumA * sumB / ((double)n * n);
 
 		var n2 = n - 1;
-		return prod / n2 - sumA * sumB / (n * n2);
+		return prod / n2 - sumA * sumB / ((double)n * n2);
 	}
 
 	/// <summary>
